@@ -1,5 +1,5 @@
 FROM        progrium/busybox 
-MAINTAINER  Jason Swank <jswank@sonatype.com>
+MAINTAINER  Jason Swank <dovker@scalene.net>
 
 RUN opkg-install curl ca-certificates
 

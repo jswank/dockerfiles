@@ -1,5 +1,5 @@
 FROM jswank/oracle-jdk7
-MAINTAINER Sonatype <cloud-ops@sonatype.com>
+MAINTAINER Jason Swank <docker@scalene.net>
 
 # The version of clm-server to install
 ENV CLM_VERSION 1.12.0-04
