@@ -36,10 +36,11 @@ $ curl http://localhost:8081/service/local/status
 
 ## Notes
 
-* Installation of Nexus Professional is to `/opt/sonatype/nexus`.  Notably:
-  * `/opt/sonatype/nexus-pro/conf/nexus.properties` is the properties file.
+* Installation of Nexus is to `/opt/sonatype/nexus`.  Notably:
+  * `/opt/sonatype/nexus-pro/conf/nexus.properties` is the properties
+  file.
 
-* A data volume,  /sonatype-work`, is used for configuration, logs,
-and storage. This directory needs to be writable by the Nexus process,
+* A data volume, /sonatype-work`, is used for configuration, logs,
+and storage.  This directory needs to be writable by the Nexus process,
 which runs as UID 200.
 
