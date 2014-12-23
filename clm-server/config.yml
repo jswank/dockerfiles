@@ -24,8 +24,8 @@ http:
   # requests. Subject to the same limitations as "port".
   adminPort: 8071
   # We recommend that you password protect access to the admin services
-  #adminUsername: user1234
-  #adminPassword: pass5678
+  # adminUsername: admin
+  # adminPassword: admin123
 
   # The hostname of the interface to which the HTTP server socket
   # will be bound. If omitted, the socket will listen on all
