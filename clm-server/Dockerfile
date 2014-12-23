@@ -1,5 +1,5 @@
 FROM       dockerfile/java:oracle-java7
-MAINTAINER Jason Swank <jswank@sonatype.com>
+MAINTAINER Jason Swank <docker@scalene.net>
 
 ENV SONATYPE_WORK /sonatype-work
 
