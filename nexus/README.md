@@ -1,25 +1,25 @@
 # jswank/nexus
 
-A busybox-based docker image for Sonatype Nexus (OSS).
+A docker image for Sonatype Nexus Pro.
 
 To build:
 
 Copy the sources down and do the build-
 
 ```
-# docker build --rm=true --tag=<username>/nexus
+# docker build --rm=true --tag=jswank/nexus
 ```
 
 To run (if port 8081 is open on your host):
 
 ```
-# docker run -d -p 8081:8081 --name nexus <username>/nexus
+# docker run -d -p 8081:8081 --name nexus jswank/nexus
 ```
 
 or to assign a random port that maps to port 8081 on the container:
 
 ```
-# docker run -d -p 8081 --name nexus <username>/nexus
+# docker run -d -p 8081 --name nexus jswank/nexus
 ```
 
 To determine the port that the container is listening on:
