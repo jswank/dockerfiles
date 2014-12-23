@@ -1,6 +1,6 @@
 # jswank/clm-server
 
-A busybox-based docker image for Sonatype CLM server.
+A docker image for Sonatype CLM server.
 
 To build:
 
