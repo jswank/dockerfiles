@@ -1,15 +1,18 @@
 # jswank/jenkins-clm
 
-A docker image for Jenkins w/ the CLM plugin.  This is based on official
-Jenkins image, and modified to include Maven and the CLM CI plugin per
-documentation at https://github.com/cloudbees/jenkins-ci.org-docker.
+A docker image for Jenkins w/ the CLM plugin.  This is a copy of the
+official Jenkins image with the following modifications:
+
+  * use dockerfile/java:oracle-java7
+  * include Maven
+  * include the Sonatype CLM CI plugin
 
 To build:
 
 Copy the this repo and do the build:
 
 ```
-# docker build --rm --tag=jswank/jenkins-clm
+# docker build --rm --tag=jswank/jenkins-clm .
 ```
 
 Run per the instructions at https://github.com/cloudbees/jenkins-ci.org-docker:
