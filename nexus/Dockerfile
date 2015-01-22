@@ -5,7 +5,7 @@ ENV SONATYPE_WORK /sonatype-work
 
 RUN mkdir -p /opt/sonatype/nexus \
   && curl --fail --silent --location --retry 3 \
-    http://download.sonatype.com/nexus/professional-bundle/nexus-professional-2.11.1-01-bundle.tar.gz \
+    https://download.sonatype.com/nexus/professional-bundle/nexus-professional-2.11.1-01-bundle.tar.gz \
   | gunzip \
   | tar x -C /tmp nexus-professional-2.11.1-01 \
   && mv /tmp/nexus-professional-2.11.1-01/* /opt/sonatype/nexus/ \

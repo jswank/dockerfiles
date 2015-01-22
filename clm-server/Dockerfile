@@ -5,7 +5,7 @@ ENV SONATYPE_WORK /sonatype-work
 
 RUN mkdir -p /opt/sonatype/clm-server \
   && curl --fail --silent --location --retry 3 \
-    http://download.sonatype.com/clm/server/sonatype-clm-server-1.12.0-04-bundle.tar.gz \
+    https://download.sonatype.com/clm/server/sonatype-clm-server-1.12.0-04-bundle.tar.gz \
   | gunzip \
   | tar x -C /opt/sonatype/clm-server sonatype-clm-server-1.12.0-04.jar
 
