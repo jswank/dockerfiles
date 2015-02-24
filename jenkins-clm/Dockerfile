@@ -28,6 +28,7 @@ ENV JENKINS_VERSION 1.592
 RUN curl -L http://mirrors.jenkins-ci.org/war/1.592/jenkins.war -o /usr/share/jenkins/jenkins.war
 
 ENV JENKINS_UC https://updates.jenkins-ci.org
+
 RUN chown -R jenkins "$JENKINS_HOME" /usr/share/jenkins/ref
 
 # install maven
@@ -36,10 +37,12 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # install CLM CI plugin
+ENV CI_VERSION 2.11.6
+
 RUN mkdir -p /usr/share/jenkins/ref/plugins \
     && curl --fail --silent --location --retry 3 \
-    --output /usr/share/jenkins/ref/plugins/sonatype-clm-ci-2.11.6.hpi \
-    http://download.sonatype.com/clm/ci/sonatype-clm-ci-2.11.6.hpi
+    --output /usr/share/jenkins/ref/plugins/sonatype-clm-ci-${CI_VERSION}.hpi \
+    http://download.sonatype.com/clm/ci/sonatype-clm-ci-${CI_VERSION}.hpi
      
 # for main web interface:
 EXPOSE 8080
