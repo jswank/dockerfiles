@@ -2,12 +2,13 @@ FROM       dockerfile/java:oracle-java7
 MAINTAINER Jason Swank <docker@scalene.net>
 
 ENV SONATYPE_WORK /sonatype-work
+ENV CLM_VERSION 1.13.0-04
 
 RUN mkdir -p /opt/sonatype/clm-server \
   && curl --fail --silent --location --retry 3 \
-    https://download.sonatype.com/clm/server/sonatype-clm-server-1.12.0-04-bundle.tar.gz \
+    https://download.sonatype.com/clm/server/sonatype-clm-server-${CLM_VERSION}-bundle.tar.gz \
   | gunzip \
-  | tar x -C /opt/sonatype/clm-server sonatype-clm-server-1.12.0-04.jar
+  | tar x -C /opt/sonatype/clm-server sonatype-clm-server-${CLM_VERSION}.jar
 
 RUN useradd -r -u 200 -m -c "clm-server role account" -d /sonatype-work -s /bin/false clm-server
 
@@ -24,5 +25,5 @@ WORKDIR /opt/sonatype/clm-server
 USER clm-server
 CMD java \
   -server -XX:MaxPermSize=128m \
-  -jar sonatype-clm-server-1.12.0-04.jar \
+  -jar sonatype-clm-server-${CLM_VERSION}.jar \
   server /sonatype-work/config.yml
