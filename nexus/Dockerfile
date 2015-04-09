@@ -2,7 +2,7 @@ FROM       dockerfile/java:oracle-java7
 MAINTAINER Jason Swank <docker@scalene.net>
 
 ENV SONATYPE_WORK /sonatype-work
-NEXUS_VERSION 2.11.2-06
+ENV NEXUS_VERSION 2.11.2-06
 
 RUN mkdir -p /opt/sonatype/nexus \
   && curl --fail --silent --location --retry 3 \
