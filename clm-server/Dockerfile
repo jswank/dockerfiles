@@ -2,7 +2,7 @@ FROM       dockerfile/java:oracle-java7
 MAINTAINER Jason Swank <docker@scalene.net>
 
 ENV SONATYPE_WORK /sonatype-work
-ENV CLM_VERSION 1.13.0-04
+ENV CLM_VERSION 1.13.1
 
 RUN mkdir -p /opt/sonatype/clm-server \
   && curl --fail --silent --location --retry 3 \

@@ -2,14 +2,15 @@ FROM       dockerfile/java:oracle-java7
 MAINTAINER Jason Swank <docker@scalene.net>
 
 ENV SONATYPE_WORK /sonatype-work
+NEXUS_VERSION 2.11.2-06
 
 RUN mkdir -p /opt/sonatype/nexus \
   && curl --fail --silent --location --retry 3 \
-    https://download.sonatype.com/nexus/professional-bundle/nexus-professional-2.11.1-01-bundle.tar.gz \
+    https://download.sonatype.com/nexus/professional-bundle/nexus-professional-${NEXUS_VERSION}-bundle.tar.gz \
   | gunzip \
-  | tar x -C /tmp nexus-professional-2.11.1-01 \
-  && mv /tmp/nexus-professional-2.11.1-01/* /opt/sonatype/nexus/ \
-  && rm -rf /tmp/nexus-professional-2.11.1-01 
+  | tar x -C /tmp nexus-professional-${NEXUS_VERSION} \
+  && mv /tmp/nexus-professional-${NEXUS_VERSION}/* /opt/sonatype/nexus/ \
+  && rm -rf /tmp/nexus-professional-${NEXUS_VERSION}
 
 RUN useradd -r -u 200 -m -c "nexus role account" -d /sonatype-work -s /bin/false nexus
 
