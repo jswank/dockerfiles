@@ -12,16 +12,21 @@ RUN mkdir -p /opt/sonatype/nexus \
   && mv /tmp/nexus-professional-${NEXUS_VERSION}/* /opt/sonatype/nexus/ \
   && rm -rf /tmp/nexus-professional-${NEXUS_VERSION}
 
-RUN useradd -r -u 200 -m -c "nexus role account" -d /sonatype-work -s /bin/false nexus
+RUN useradd -r -u 200 -m -c "nexus role account" -d ${SONATYPE_WORK} -s /bin/false nexus
 
-VOLUME /sonatype-work
+VOLUME ${SONATYPE_WORK}
 
 EXPOSE 8081
 WORKDIR /opt/sonatype/nexus
 USER nexus
+ENV CONTEXT_PATH /
+ENV MAX_HEAP 768m
+ENV MIN_HEAP 256m
+ENV JAVA_OPTS -server -XX:MaxPermSize=192m -Djava.net.preferIPv4Stack=true
 CMD java \
-  -server -XX:MaxPermSize=192m -Djava.net.preferIPv4Stack=true -Xms256m -Xmx1g \
-  -Dnexus-work=/sonatype-work -Dnexus-webapp-context-path=/ \
-  -cp conf/:`(echo lib/*.jar) | sed -e "s/ /:/g"` \
+  -Dnexus-work=${SONATYPE_WORK} -Dnexus-webapp-context-path=${CONTEXT_PATH} \
+  -Xms${MIN_HEAP} -Xms${MAX_HEAP} \
+  -cp 'conf/:lib/*' \
+  ${JAVA_OPTS} \
   org.sonatype.nexus.bootstrap.Launcher ./conf/jetty.xml ./conf/jetty-requestlog.xml
 
