@@ -37,7 +37,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # install CLM CI plugin
-ENV CI_VERSION 2.12.1-01
+ENV CI_VERSION 2.13.0
 
 RUN mkdir -p /usr/share/jenkins/ref/plugins \
     && curl --fail --silent --location --retry 3 \
