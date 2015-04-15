@@ -3,13 +3,21 @@
 #
 
 # Directory for data files.
-sonatypeWork: /sonatype-work
+sonatypeWork: /sonatype-work/clm-server
 
 # Base URL of the Sonatype CLM server for user facing links back to the server.
 #baseUrl: http://localhost:8070/
 
 # Hour of the day(0-23) to schedule Policy Monitoring execution. The default is midnight.
 #policyMonitoringHour: 0
+
+# If true, allows anonymous policy evaluation from client tooling (e.g. CLI, CI, Maven).
+# If false forces authentication and disallows anonymous access.
+# Defaults to true for backward compatibility.
+#anonymousClientAccessAllowed: true
+
+# A custom fragment to add to the "user-agent" for HTTP calls
+#userAgentSuffix: "example fragment"
 
 # HTTP-specific options.
 http:
@@ -24,8 +32,8 @@ http:
   # requests. Subject to the same limitations as "port".
   adminPort: 8071
   # We recommend that you password protect access to the admin services
-  # adminUsername: admin
-  # adminPassword: admin123
+  #adminUsername: user1234
+  #adminPassword: pass5678
 
   # The hostname of the interface to which the HTTP server socket
   # will be bound. If omitted, the socket will listen on all
@@ -75,7 +83,7 @@ http:
 logging:
 
   # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
-  level: INFO
+  level: DEBUG
 
   # Logger-specific levels.
   loggers:
@@ -96,7 +104,7 @@ logging:
     # Do not display log statements below this threshold to stdout.
     threshold: INFO
 
-    logFormat: "%d{'yyyy-MM-dd HH:mm:ss,SSSZ'} %level [%thread] %logger - %msg%n"
+    logFormat: "%d{'yyyy-MM-dd HH:mm:ss,SSSZ'} %level [%thread] %X{username} %logger - %msg%n"
 
   # Settings for logging to a file.
   file:
@@ -105,7 +113,7 @@ logging:
     enabled: true
 
     # Do not write log statements below this threshold to the file.
-    threshold: INFO
+    threshold: ALL
 
     # The file to which current statements will be logged.
     currentLogFilename: /sonatype-work/log/clm-server.log
@@ -118,6 +126,6 @@ logging:
     archivedLogFilenamePattern: /sonatype-work/log/clm-server-%d.log.gz
 
     # The number of archived files to keep.
-    archivedFileCount: 10
+    archivedFileCount: 5
 
-    logFormat: "%d{'yyyy-MM-dd HH:mm:ss,SSSZ'} %level [%thread] %logger - %msg%n"
+    logFormat: "%d{'yyyy-MM-dd HH:mm:ss,SSSZ'} %level [%thread] %X{username} %logger - %msg%n"
