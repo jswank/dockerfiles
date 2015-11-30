@@ -1,5 +1,5 @@
 FROM       alpine
-MAINTAINER Jason Swank <github@scalene.net>
+MAINTAINER Jason Swank <docker@scalene.net>
 
 ENV NEXUS_DATA /nexus-data
 
