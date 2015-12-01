@@ -1,11 +1,11 @@
-# jswank/nexus3-centos
+# jswank/nexus3
 
 A Dockerfile for Sonatype Nexus 3 Milestone releases, based on Centos.
 
 To run, binding the exposed port 8081 to the host.
 
 ```
-$ docker run -d -p 8081:8081 --name nexus jswank/nexus3-centos
+$ docker run -d -p 8081:8081 --name nexus jswank/nexus3
 ```
 
 To test:
@@ -17,7 +17,7 @@ $ curl -u admin:admin123 http://localhost:8081/internal/ping
 The karaf console is accessible if running in the foreground and attaching a tty:
 
 ```
-$ docker run -t -i -p 8081:8081 --name nexus jswank/nexus3-centos
+$ docker run -t -i -p 8081:8081 --name nexus jswank/nexus3
 ```
 
 
@@ -26,7 +26,7 @@ To (re)build the image:
 Copy the Dockerfile and do the build-
 
 ```
-$ docker build --rm=true --tag=jswank/nexus3-centos .
+$ docker build --rm=true --tag=jswank/nexus3 .
 ```
 
 
@@ -56,7 +56,7 @@ process, which runs as UID 200.
   These can be used supplied at runtime to control the JVM:
 
   ```
-  $ docker run -d -p 8081:8081 --name nexus -e JAVA_MAX_HEAP=768m jswank/nexus3-centos
+  $ docker run -d -p 8081:8081 --name nexus -e JAVA_MAX_HEAP=768m jswank/nexus3
   ```
 
 
@@ -72,8 +72,8 @@ additional information.
   this purpose.  This is the recommended approach.  
 
   ```
-  $ docker run -d --name nexus-data jswank/nexus3-centos echo "data-only container for Nexus"
-  $ docker run -d -p 8081:8081 --name nexus --volumes-from nexus-data jswank/nexus3-centos
+  $ docker run -d --name nexus-data jswank/nexus3 echo "data-only container for Nexus"
+  $ docker run -d -p 8081:8081 --name nexus --volumes-from nexus-data jswank/nexus3
   ```
 
   2. *Mount a host directory as the volume*.  This is not portable, as it
@@ -83,5 +83,5 @@ additional information.
 
   ```
   $ mkdir /some/dir/nexus-data && chown -R 200 /some/dir/nexus-data
-  $ docker run -d -p 8081:8081 --name nexus -v /some/dir/nexus-data:/nexus-data jswank/nexus3-centos
+  $ docker run -d -p 8081:8081 --name nexus -v /some/dir/nexus-data:/nexus-data jswank/nexus3
   ```
