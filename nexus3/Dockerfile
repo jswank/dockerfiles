@@ -3,7 +3,8 @@ MAINTAINER Jason Swank <docker@scalene.net>
 
 ENV NEXUS_DATA /nexus-data
 
-ENV NEXUS_VERSION 3.0.0-b2015110601
+ENV NEXUS_VERSION 3.0.0
+ENV NEXUS_MILESTONE m7
 
 ENV JAVA_HOME /opt/java
 ENV JAVA_VERSION_MAJOR 8
@@ -26,14 +27,16 @@ RUN mkdir -p /opt \
 # install nexus
 RUN mkdir -p /opt/sonatype/nexus \
   && curl --fail --silent --location --retry 3 \
-    https://download.sonatype.com/nexus/oss/nexus-${NEXUS_VERSION}-bundle.tar.gz \
+    https://download.sonatype.com/nexus/3/nexus-${NEXUS_VERSION}-${NEXUS_MILESTONE}-unix.tar.gz \
   | gunzip \
-  | tar x -C /tmp nexus-${NEXUS_VERSION} \
-  && mv /tmp/nexus-${NEXUS_VERSION}/* /opt/sonatype/nexus/ \
-  && rm -rf /tmp/nexus-${NEXUS_VERSION}
+  | tar x -C /tmp nexus-${NEXUS_VERSION}-b2016011501 \
+  && mv /tmp/nexus-${NEXUS_VERSION}-b2016011501/* /opt/sonatype/nexus/ \
+  && rm -rf /tmp/nexus-${NEXUS_VERSION}-b2016011501
 
 ## configure nexus runtime env
-RUN sed -e "s|KARAF_HOME}/instances|KARAF_DATA}/instances|" -i /opt/sonatype/nexus/bin/nexus
+RUN sed -e "s|karaf.instances=data/instances|karaf.instances=${NEXUS_DATA}/instances|" -i /opt/sonatype/nexus/bin/nexus.vmoptions
+RUN sed -e "s|karaf.data=data|karaf.data=${NEXUS_DATA}|" -i /opt/sonatype/nexus/bin/nexus.vmoptions
+RUN sed -e "s|java.io.tmpdir=data/tmp|java.io.tmpdir=${NEXUS_DATA}/tmp|" -i /opt/sonatype/nexus/bin/nexus.vmoptions
 
 RUN useradd -r -u 200 -m -c "nexus role account" -d ${NEXUS_DATA} -s /bin/false nexus
 
@@ -42,11 +45,6 @@ VOLUME ${NEXUS_DATA}
 EXPOSE 8081
 USER nexus
 WORKDIR /opt/sonatype/nexus
-
-ENV KARAF_BASE /opt/sonatype/nexus
-ENV KARAF_DATA ${NEXUS_DATA}
-ENV KARAF_ETC ${KARAF_BASE}/etc
-ENV KARAF_HOME ${KARAF_BASE}
 
 ENV JAVA_MAX_MEM 768m
 ENV JAVA_MIN_MEM 256m
