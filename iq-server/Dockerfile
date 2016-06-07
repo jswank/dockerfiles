@@ -1,10 +1,6 @@
 FROM       centos:centos7
 MAINTAINER Jason Swank <docker@scalene.net>
 
-ENV NEXUS_DATA /nexus-data
-
-ENV NEXUS_VERSION 3.0.0-b2015110601
-
 ENV JAVA_HOME /opt/java
 ENV JAVA_VERSION_MAJOR 8
 ENV JAVA_VERSION_MINOR 91
@@ -33,7 +29,7 @@ RUN mkdir -p /opt/sonatype/iq-server \
   | gunzip \
   | tar x -C /opt/sonatype/iq-server nexus-iq-server-${IQ_VERSION}.jar config.yml 
 
-RUN useradd -r -u 2001 -m -c "iq-server role account" -d ${SONATYPE_WORK} -s /bin/false iq-server
+RUN useradd -r -u 201 -m -c "iq-server role account" -d ${SONATYPE_WORK} -s /bin/false iq-server
 
 VOLUME ${SONATYPE_WORK}
 
