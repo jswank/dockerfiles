@@ -33,7 +33,7 @@ RUN mkdir -p /opt/sonatype/iq-server \
   | gunzip \
   | tar x -C /opt/sonatype/iq-server nexus-iq-server-${IQ_VERSION}.jar config.yml 
 
-RUN adduser -S -u 2001 -g "iq-server role account" -h ${SONATYPE_WORK} -s /bin/false iq-server
+RUN useradd -r -u 2001 -m -c "iq-server role account" -d ${SONATYPE_WORK} -s /bin/false iq-server
 
 VOLUME ${SONATYPE_WORK}
 
