@@ -1,0 +1,6 @@
+bind: 0.0.0.0:8080      # address and port to bind on
+allow-transfers: true   # allow file downloads
+relative-root: '' # web app root path (default: '')
+commands: [tail, grep, awk] # allowed commands
+files:
+   - '/logs/*'
