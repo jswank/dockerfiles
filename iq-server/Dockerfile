@@ -28,8 +28,10 @@ RUN mkdir -p /opt/sonatype/iq-server \
     https://download.sonatype.com/clm/server/nexus-iq-server-${IQ_VERSION}-bundle.tar.gz \
   | gunzip \
   | tar x -C /opt/sonatype/iq-server nexus-iq-server-${IQ_VERSION}.jar config.yml \
-  && mv /opt/sonatype/iq-server/nexus-iq-server-${IQ_VERSION}.jar /opt/sonatype/iq-server/nexus-iq-server.jar
+  && mv /opt/sonatype/iq-server/nexus-iq-server-${IQ_VERSION}.jar /opt/sonatype/iq-server/nexus-iq-server.jar \
+  && mv /opt/sonatype/iq-server/config.yml /opt/sonatype/iq-server/config.yml.dist
 
+ADD config.yml /opt/sonatype/iq-server/
 
 RUN useradd -r -u 201 -m -c "iq-server role account" -d ${SONATYPE_WORK} -s /bin/false iq-server
 
