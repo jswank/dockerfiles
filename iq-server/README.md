@@ -70,3 +70,29 @@ for additional information.
   $ mkdir /some/dir/iq-data && chown -R 201 /some/dir/iq-data
   $ docker run -d -p 8070:8070 --name iq-server -v /some/dir/iq-data:/sonatype-work jswank/iq-server
   ```
+
+### Changing IQ Server Configuration
+
+There are two primary ways to update the configuration for iq-server. 
+
+*Pass parameters to the JVM*.  For instance, to change the `baseUrl`:
+
+```
+  $ docker run -d -e JVM_OPTIONS="dw.baseUrl=http://someaddress:8060" jswank/iq-server
+```
+
+*Create an image w/ updated `config.yml`*:
+
+1. Create a new `config.yml`
+2. Create a `Dockerfile`:
+```
+FROM jswank/iq-server
+ADD config.yml /opt/sonatype/iq-server/
+```
+3. Create a local image:
+```
+  $ docker build -t my-iq-server .
+```
+4. Use this docker image as you normally would.
+
+
