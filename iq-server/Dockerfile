@@ -37,7 +37,7 @@ RUN useradd -r -u 201 -m -c "iq-server role account" -d ${SONATYPE_WORK} -s /bin
 
 VOLUME ${SONATYPE_WORK}
 
-ENV JVM_OPTIONS -server
+ENV JVM_OPTIONS ""
 EXPOSE 8070
 EXPOSE 8071
 WORKDIR /opt/sonatype/iq-server
