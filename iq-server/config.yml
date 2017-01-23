@@ -12,9 +12,9 @@ sonatypeWork: /sonatype-work/clm-server
 #policyMonitoringHour: 0
 
 # If true, allows anonymous policy evaluation from client tooling (e.g. CLI, CI, Maven).
-# If false forces authentication and disallows anonymous access.
-# Defaults to true for backward compatibility.
-#anonymousClientAccessAllowed: true
+# If false, forces authentication and disallows anonymous access.
+# Defaults to false for security.
+#anonymousClientAccessAllowed: false
 
 # Enables/disables cross-site request forgery protection. Defaults to true for increased security.
 #csrfProtection: true
@@ -95,6 +95,31 @@ http:
   # Connect using TLS.
   #tls: true
 
+# Notification JIRA settings.
+# Note that any user of the Nexus IQ Server will have access to see all projects and applicable issue types available
+# to the configured JIRA account. More details available in the Nexus IQ Server documentation. If enabled, ensure that
+# the baseUrl configuration setting is also enabled and correct, because generated tickets contain links to the server.
+#jira:
+  # The JIRA server address
+  #url: "https://127.0.0.1/"
+
+  # The username used to connect to the JIRA server
+  #username: "anonymous"
+
+  # The password used to connect to the JIRA server
+  #password: "guest"
+
+  # Any custom fields that you wish to populate in the JIRA notification. Any
+  # required fields must have default values configured here. Examples are shown below.
+  #customFields:
+  #   reporter:
+  #     name: "username"
+  #   labels:
+  #     - test
+  #     - bug
+  #   environment: "dev"
+  #   duedate: "2016-11-01"
+
 # Proxy settings.
 #proxy:
 
@@ -173,6 +198,15 @@ logging:
     archivedLogFilenamePattern: ./log/clm-server-%d.log.gz
 
     # The number of archived files to keep.
-    archivedFileCount: 5
+    archivedFileCount: 50
 
     logFormat: "%d{'yyyy-MM-dd HH:mm:ss,SSSZ'} %level [%thread] %X{username} %logger - %msg%n"
+
+
+# Passphrase used to encrypt the Webhook Secret Keys
+#webhookSecretPassphrase: "^d1swM!FF&qQ"
+
+#eventBus:
+  # Configures the number of threads used for the EventBus
+  # Defaults to 500 if not provided.
+  # maxPoolSize: 500
