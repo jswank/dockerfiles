@@ -83,16 +83,16 @@ There are two primary ways to update the configuration for iq-server.
 
 *Create an image w/ updated `config.yml`*:
 
-1. Create a new `config.yml`
-2. Create a `Dockerfile`:
+* Create a new `config.yml`
+* Create a `Dockerfile`:
 ```
-FROM jswank/iq-server
-ADD config.yml /opt/sonatype/iq-server/
+  FROM jswank/iq-server
+  ADD config.yml /opt/sonatype/iq-server/
 ```
-3. Create a local image:
+* Create a local image:
 ```
   $ docker build -t my-iq-server .
 ```
-4. Use this docker image as you normally would.
+* Use this docker image as you normally would.
 
 
