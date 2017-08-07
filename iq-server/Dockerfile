@@ -22,7 +22,7 @@ RUN mkdir -p /opt \
 
 
 ENV SONATYPE_WORK /sonatype-work
-ENV IQ_VERSION 1.33.0-04
+ENV IQ_VERSION 1.34.0-01
 
 RUN mkdir -p /opt/sonatype/iq-server \
   && curl --fail --silent --location --retry 3 \
