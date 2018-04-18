@@ -1,8 +1,9 @@
 # jswank/iq-server
 
-A Dockerfile for Sonatype Nexus IQ Server, based on CentOS.
+This is an **unofficial** Dockerfile for Sonatype Nexus IQ, based on CentOS.
+The official docker image is [sonatype/nexus-iq-server](https://hub.docker.com/r/sonatype/nexus-iq-server/).
 
-To run, binding the exposed port 8070 and 8071 to the host.
+To run, binding the exposed port 8070 and 8071 to the host:
 
 ```
 $ docker run -d -p 8070:8070 -p 8071:8071 --name iq-server jswank/iq-server
@@ -75,10 +76,10 @@ for additional information.
 
 There are two primary ways to update the configuration for iq-server. 
 
-*Pass parameters to the JVM*.  For instance, to change the `baseUrl`:
+*Pass parameters to the JVM via IQ_OPTIONS*.  For instance, to change the `baseUrl`:
 
 ```
-  $ docker run -d -e JVM_OPTIONS="dw.baseUrl=http://someaddress:8060" jswank/iq-server
+  $ docker run -d -e IQ_OPTIONS="dw.baseUrl=http://someaddress:8060" jswank/iq-server
 ```
 
 *Create an image w/ updated `config.yml`*:

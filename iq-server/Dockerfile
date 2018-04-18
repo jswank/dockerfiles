@@ -3,9 +3,9 @@ MAINTAINER Jason Swank <docker@scalene.net>
 
 ENV JAVA_HOME /opt/java
 ENV JAVA_VERSION_MAJOR 8
-ENV JAVA_VERSION_MINOR 131
+ENV JAVA_VERSION_MINOR 172
 ENV JAVA_VERSION_BUILD 11 
-ENV JAVA_DOWNLOAD_HASH=d54c1d3a095b4ff2b6607d096fa80163
+ENV JAVA_DOWNLOAD_HASH=a58eab1ec242421181065cdc37240b08
 
 RUN yum install -y \
   curl tar \
@@ -22,23 +22,20 @@ RUN mkdir -p /opt \
 
 
 ENV SONATYPE_WORK /sonatype-work
-ENV IQ_VERSION 1.37.0-02
 
 RUN mkdir -p /opt/sonatype/iq-server \
   && curl --fail --silent --location --retry 3 \
-    https://download.sonatype.com/clm/server/nexus-iq-server-${IQ_VERSION}-bundle.tar.gz \
+    https://download.sonatype.com/clm/server/latest.tar.gz \
   | gunzip \
-  | tar x -C /opt/sonatype/iq-server nexus-iq-server-${IQ_VERSION}.jar config.yml \
-  && mv /opt/sonatype/iq-server/nexus-iq-server-${IQ_VERSION}.jar /opt/sonatype/iq-server/nexus-iq-server.jar \
-  && mv /opt/sonatype/iq-server/config.yml /opt/sonatype/iq-server/config.yml.dist
-
-ADD config.yml /opt/sonatype/iq-server/
+  | tar x -C /opt/sonatype/iq-server nexus-iq-server-*.jar config.yml \
+  && mv /opt/sonatype/iq-server/nexus-iq-server-*.jar /opt/sonatype/iq-server/nexus-iq-server.jar
 
 RUN useradd -r -u 201 -m -c "iq-server role account" -d ${SONATYPE_WORK} -s /bin/false iq-server
 
 VOLUME ${SONATYPE_WORK}
 
 ENV JVM_OPTIONS ""
+ENV IQ_OPTIONS ""
 EXPOSE 8070
 EXPOSE 8071
 WORKDIR /opt/sonatype/iq-server
@@ -46,5 +43,6 @@ USER iq-server
 CMD ${JAVA_HOME}/bin/java \
   ${JVM_OPTIONS} \
   -Ddw.sonatypeWork=${SONATYPE_WORK} \
+  ${IQ_OPTIONS} \
   -jar nexus-iq-server.jar \
   server config.yml
