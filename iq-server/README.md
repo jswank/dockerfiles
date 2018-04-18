@@ -79,7 +79,7 @@ There are two primary ways to update the configuration for iq-server.
 *Pass parameters to the JVM via IQ_OPTIONS*.  For instance, to change the `baseUrl`:
 
 ```
-  $ docker run -d -e IQ_OPTIONS="dw.baseUrl=http://someaddress:8060" jswank/iq-server
+  $ docker run -d -e IQ_OPTIONS="-Ddw.baseUrl=http://someaddress:8000" jswank/iq-server
 ```
 
 *Create an image w/ updated `config.yml`*:
